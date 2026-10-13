@@ -1,0 +1,30 @@
+export const ChannelNames = {
+  welcome: '👋・welcome',
+  verify: '✅・verify',
+  announcements: '📢・announcements',
+  rules: '📜・rules',
+  rustNews: '📰・rust-news',
+  changelogs: '📋・changelogs',
+  hallOfFame: '🏆・hall-of-fame',
+  buildShowcase: '🏛️・build-showcase',
+  baseCodes: '🔐・base-codes',
+  tutorialsGuides: '📚・tutorials-guides',
+  builderPortfolio: '🎨・builder-portfolio',
+  submitABuild: '📄・submit-a-build',
+  buildRatings: '⭐・build-ratings',
+  buildRequests: '📄・build-requests',
+  orderHere: '🛒・order-here',
+} as const;
+
+export const RoleNames = {
+  owner: '👑 Owner',
+  administrator: '🛡️ Administrator',
+  moderator: '🔨 Moderator',
+  verifiedBuilder: '💎 Verified Builder',
+  expert: '🏆 Expert',
+  advancedBuilder: '🔷 Advanced Builder',
+  builder: '🔨 Builder',
+  beginner: '🌱 Beginner',
+  member: '👤 Member',
+  bots: '🤖 Bots',
+} as const;
