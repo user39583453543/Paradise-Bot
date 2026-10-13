@@ -16,6 +16,9 @@ if (!token || !clientId || !guildId) {
   process.exit(1);
 }
 
+const applicationId: string = clientId;
+const targetGuildId: string = guildId;
+
 const rest = new REST({ version: '10' }).setToken(token);
 
 async function deploy() {
@@ -24,7 +27,7 @@ async function deploy() {
   );
 
   await rest.put(
-    Routes.applicationGuildCommands(clientId, guildId),
+    Routes.applicationGuildCommands(applicationId, targetGuildId),
     {
       body: commands.map((command) => command.data.toJSON()),
     },
