@@ -2,6 +2,7 @@ import { Client, Events, GatewayIntentBits, MessageFlags } from 'discord.js';
 import { handleButtonInteraction } from './buttons';
 import { commands } from './commands';
 import { config } from './config';
+import { registerCommands } from './registerCommands';
 
 // "Guilds" is the only intent slash commands need.
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
