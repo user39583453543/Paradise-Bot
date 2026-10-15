@@ -13,6 +13,11 @@ const commandMap = new Map(commands.map((command) => [command.data.name, command
 client.once(Events.ClientReady, (readyClient) => {
   console.log(`🏝️ [bot] Paradise is online as ${readyClient.user.tag}`);
   console.log(`🌴 [bot] Loaded ${commandMap.size} command(s): ${[...commandMap.keys()].map((n) => `/${n}`).join(', ')}`);
+
+  // Send the slash commands to Discord on every start, so deploying on Railway is all you need.
+  registerCommands().catch((error) => {
+    console.error('❌ [bot] Could not register commands:', error instanceof Error ? error.message : error);
+  });
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {
