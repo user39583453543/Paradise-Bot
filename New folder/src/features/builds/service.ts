@@ -2,7 +2,7 @@ import { AttachmentBuilder, ButtonStyle, ActionRowBuilder, ButtonBuilder, EmbedB
 import { ChannelNames } from '../../serverConfig';
 import { findTextChannel } from '../../utils/discordLookup';
 import { Colors, SERVER_NAME } from '../../theme';
-import { store, save, addPoints, nextId } from '../../data/store';
+import { store, save, addPoints, nextId, type BuildRecord } from '../../data/store';
 import { cleanLines, short } from '../../utils/text';
 import { isStaff } from '../../utils/permissions';
 export async function submitBuild(i:ChatInputCommandInteraction){
@@ -10,7 +10,7 @@ export async function submitBuild(i:ChatInputCommandInteraction){
  const title=i.options.getString('title',true), description=cleanLines(i.options.getString('description',true)), category=i.options.getString('category',true);
  const image=i.options.getAttachment('image'); const code=i.options.getString('code')??undefined;
  const ch=findTextChannel(i.guild,ChannelNames.submitABuild); if(!ch){await i.reply({content:`❌ Missing ${ChannelNames.submitABuild}.`,flags:MessageFlags.Ephemeral});return;}
- const id=nextId('build'); const rec={id,userId:i.user.id,title,description,category,imageUrl:image?.url,code,status:'pending' as const,createdAt:Date.now(),ratings:[]}; store().builds.push(rec); save();
+ const id=nextId('build'); const rec:BuildRecord={id,userId:i.user.id,title,description,category,imageUrl:image?.url,code,status:'pending',createdAt:Date.now(),ratings:[]}; store().builds.push(rec); save();
  const embed=new EmbedBuilder().setColor(Colors.oceanBlue).setTitle(`🏛️ ${title}`).setDescription(description).addFields({name:'🏷️ Category',value:category,inline:true},{name:'👤 Builder',value:`${i.user}`,inline:true},{name:'📌 Status',value:'Pending staff review',inline:true}).setFooter({text:`${SERVER_NAME} · ${id}`}).setTimestamp(); if(image)embed.setImage(image.url);
  const row=new ActionRowBuilder<ButtonBuilder>().addComponents(new ButtonBuilder().setCustomId(`paradise:build:approve:${id}`).setLabel('Approve').setEmoji('✅').setStyle(ButtonStyle.Success),new ButtonBuilder().setCustomId(`paradise:build:reject:${id}`).setLabel('Reject').setEmoji('❌').setStyle(ButtonStyle.Danger));
  const msg=await ch.send({embeds:[embed],components:[row]}); rec.messageId=msg.id; save(); await i.reply({content:`✅ Build submitted for review in ${ch}.`,flags:MessageFlags.Ephemeral});
