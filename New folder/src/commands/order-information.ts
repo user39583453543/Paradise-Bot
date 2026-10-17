@@ -20,7 +20,9 @@ const command: Command = {
       .setDescription('Looking for a custom Rust build? Use a Paradise ticket and give the builder as much detail as possible so we can quote and build exactly what you want.')
       .setImage('attachment://paradise-orders.png')
       .setFooter({ text: '🏝️ Quality builds • Trusted builders • Your vision' });
-    await i.channel?.send({ embeds: [embed], files: [file] });
+    if (i.channel && 'send' in i.channel) {
+      await i.channel.send({ embeds: [embed], files: [file] });
+    }
     await i.reply({ content: '✅ Order information panel posted.', ephemeral: true });
   },
 };
