@@ -20,7 +20,9 @@ const command: Command = {
       .setDescription('Here is what the main Paradise roles mean and how they fit into the community.')
       .setImage('attachment://paradise-roles.png')
       .setFooter({ text: '🏝️ Builders • Community • Grow Together' });
-    await i.channel?.send({ embeds: [embed], files: [file] });
+    if (i.channel && 'send' in i.channel) {
+      await i.channel.send({ embeds: [embed], files: [file] });
+    }
     await i.reply({ content: '✅ Roles information panel posted.', ephemeral: true });
   },
 };

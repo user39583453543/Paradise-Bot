@@ -20,7 +20,9 @@ const command: Command = {
       .setDescription('Please read and follow the rules below. Help us keep Paradise friendly, organised and enjoyable for everyone.')
       .setImage('attachment://paradise-rules.png')
       .setFooter({ text: '🏝️ Build • Share • Create • Belong' });
-    await i.channel?.send({ embeds: [embed], files: [file] });
+    if (i.channel && 'send' in i.channel) {
+      await i.channel.send({ embeds: [embed], files: [file] });
+    }
     await i.reply({ content: '✅ Rules panel posted.', ephemeral: true });
   },
 };

@@ -22,7 +22,9 @@ const command: Command = {
       .setImage('attachment://paradise-rules.png')
       .setFooter({ text: '🏝️ Build • Share • Create • Belong' });
 
-    await i.channel?.send({ embeds: [embed], files: [file] });
+    if (i.channel && 'send' in i.channel) {
+      await i.channel.send({ embeds: [embed], files: [file] });
+    }
     await i.reply({ content: '✅ Rules panel posted.', ephemeral: true });
   },
 };
